@@ -1,0 +1,55 @@
+/* Style riêng cho todo-list nếu cần, hiện tại dùng Tailwind là chính */
+
+/* Thanh cuộn sáng cho light mode, tối cho dark mode */
+.todo-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #bdbdbd #f3f4f6;
+  border-radius: 1.5rem;
+}
+.todo-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  background: transparent !important;
+}
+.todo-scrollbar::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+.todo-scrollbar::-webkit-scrollbar-thumb {
+  background: #444 !important;
+  border-radius: 1.5rem;
+  min-height: 40px;
+  border: 2px solid transparent;
+  transition: background 0.2s;
+}
+.todo-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #888 !important;
+}
+.dark .todo-scrollbar {
+  scrollbar-color: #444 #222;
+}
+.dark .todo-scrollbar::-webkit-scrollbar {
+  background: #222 !important;
+}
+.dark .todo-scrollbar::-webkit-scrollbar-thumb {
+  background: #888 !important;
+}
+.dark .todo-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #aaa !important;
+}
+.dark .todo-scrollbar::-webkit-scrollbar-track {
+  background: #222 !important;
+  border-radius: 1.5rem;
+}
+
+/* Làm mờ/xám task đã completed */
+.bg-gray-200 {
+  background-color: #e5e7eb !important;
+}
+.dark .bg-gray-800 {
+  background-color: #1f2937 !important;
+}
+.opacity-60 {
+  opacity: 0.6 !important;
+}
+.pointer-events-none {
+  pointer-events: none !important;
+}

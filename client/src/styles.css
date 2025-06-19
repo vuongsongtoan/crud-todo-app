@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tuỳ chọn: style cho hiệu ứng chuyển màu mượt mà */
+html {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/*
+  Đã chuyển toàn bộ giao diện sang dùng TailwindCSS, không cần style custom ở đây nữa.
+  Nếu muốn custom thêm, hãy thêm các tiện ích Tailwind hoặc @apply.
+*/

@@ -1,0 +1,49 @@
+<div class="min-h-screen flex items-center justify-center bg-background-light dark:bg-background-dark transition-colors">
+  <div class="w-full max-w-2xl h-[600px] flex flex-col justify-between p-6 bg-white/95 dark:bg-background-dark rounded-3xl shadow-2xl border-2 border-black dark:border-white backdrop-blur-md transition-colors">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-center mb-4 pb-4 border-b-2 border-black dark:border-white text-accent-light dark:text-accent-dark drop-shadow-lg tracking-tight select-none">
+      <span class="inline-block align-middle mr-2 text-2xl">📝</span>Todo List
+    </h1>
+    <div class="flex-1 mb-2 pb-2">
+      <div class="h-full max-h-[400px] rounded-2xl bg-white/80 dark:bg-background-dark/80 shadow-inner px-2 py-2 overflow-y-auto todo-scrollbar">
+        <ul class="space-y-3">
+          <li *ngFor="let todo of todos$ | async" 
+              class="flex items-center gap-3 rounded-xl px-4 py-3 shadow border-2 border-accent2-light dark:border-accent2-dark hover:border-accent-light dark:hover:border-accent-dark transition-all"
+              [ngClass]="{
+                'bg-white dark:bg-background-dark': !todo.isCompleted,
+                'bg-gray-200 dark:bg-gray-800 opacity-60': todo.isCompleted
+              }">
+            <button (click)="toggleComplete(todo)" class="w-7 h-7 flex-shrink-0 flex items-center justify-center rounded-full border-2 border-accent-light dark:border-accent-dark focus:outline-none transition-all duration-200"
+              [ngClass]="todo.isCompleted ? 'bg-accent-light dark:bg-accent-dark border-accent-light dark:border-accent-dark scale-110' : 'bg-white dark:bg-background-dark'">
+              <span *ngIf="todo.isCompleted" class="text-white dark:text-background-dark text-base">&#10003;</span>
+            </button>
+            <ng-container *ngIf="editingId === todo.id && !todo.isCompleted; else viewMode">
+              <input [(ngModel)]="editingTitle" (blur)="saveEdit(todo)" (keydown.enter)="saveEdit(todo)" class="flex-1 px-2 py-1 rounded border border-accent-light dark:border-accent-dark focus:outline-none focus:ring-2 focus:ring-accent-light/30 dark:focus:ring-accent-dark/30 text-base bg-white/80 dark:bg-background-dark/80 text-foreground-light dark:text-foreground-dark" style="min-width:0;" autofocus />
+            </ng-container>
+            <ng-template #viewMode>
+              <span [class.line-through]="todo.isCompleted" class="flex-1 text-base font-medium transition-all duration-200 break-words whitespace-pre-line overflow-hidden text-foreground-light dark:text-foreground-dark text-accent2-light dark:text-accent2-dark">{{ todo.title }}</span>
+              <span class="ml-2 text-xs text-gray-400 dark:text-gray-500 select-none">
+                {{ getVietNamTime(todo.createdAt) | date:'short' }}
+              </span>
+              <button *ngIf="!todo.isCompleted" (click)="startEdit(todo)" class="ml-2 p-1.5 rounded-full bg-transparent hover:bg-accent-light/20 dark:hover:bg-accent-dark/30 text-accent-light dark:text-accent-dark transition" title="Edit">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.5 3.5a2.121 2.121 0 113 3L7 19l-4 1 1-4 12.5-12.5z" />
+                </svg>
+              </button>
+            </ng-template>
+            <button (click)="deleteTodo(todo)" class="p-1.5 bg-accent-light/10 dark:bg-accent-dark/20 hover:bg-accent-light/30 dark:hover:bg-accent-dark/40 text-accent-light dark:text-accent-dark rounded-full shadow transition-all" title="Delete">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <form (ngSubmit)="addTodo()" class="flex items-center gap-3 mt-2 pt-4 relative">
+      <div class="absolute -top-2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-black/60 to-transparent dark:via-white/60 rounded-full pointer-events-none"></div>
+      <input [(ngModel)]="newTodo" name="title" placeholder="What needs to be done?" required class="flex-1 px-4 py-2 bg-background-light dark:bg-background-dark border-2 border-accent2-light dark:border-accent2-dark rounded-full focus:outline-none focus:ring-2 focus:ring-accent-light/30 dark:focus:ring-accent-dark/30 text-base shadow transition placeholder-accent2-light dark:placeholder-accent2-dark text-foreground-light dark:text-foreground-dark" />
+      <button type="submit" class="w-10 h-10 flex items-center justify-center bg-accent-light dark:bg-accent-dark text-white font-bold rounded-full shadow-lg hover:scale-110 hover:bg-accent2-light dark:hover:bg-accent2-dark transition-all duration-200 text-xl" title="Add">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+      </button>
+    </form>
+  </div>
+</div>
