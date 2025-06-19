@@ -13,18 +13,11 @@
 ### Backend (Server)
 ```bash
 cd server
-  # Cài dotnet-ef nếu chưa có
-  # dotnet tool install --global dotnet-ef
-  # Xóa migration cũ, tạo migration mới nếu cần
-  # dotnet ef migrations add InitTodoGuidCreatedAt --project ./CRUDTodoApp.csproj
-  # dotnet ef database update --project ./CRUDTodoApp.csproj
-  # Chạy API
- dotnet run --project ./CRUDTodoApp.csproj
+dotnet run
 ```
 ### Frontend (Client)
 ```bash
 cd client
-npm install
 ng serve
 ```
 Truy cập tại: http://localhost:4200
