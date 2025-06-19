@@ -1,0 +1,93 @@
+﻿import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TodoService, Todo } from './todo.service';
+
+@Component({
+  selector: 'app-todo-list',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  template: `
+    <div class="todo-container">
+      <h2>Todo List</h2>
+      <form (ngSubmit)="addTodo()" class="todo-form">
+        <input [(ngModel)]="newTodo.title" name="title" placeholder="Title" required />
+        <input [(ngModel)]="newTodo.description" name="description" placeholder="Description" />
+        <button type="submit">Add</button>
+      </form>
+      <ul class="todo-list">
+        <li *ngFor="let todo of todos">
+          <input type="checkbox" [(ngModel)]="todo.isCompleted" (change)="toggleComplete(todo)" />
+          <span [class.completed]="todo.isCompleted">{{ todo.title }} - {{ todo.description }}</span>
+          <button (click)="editTodo(todo)">Edit</button>
+          <button (click)="deleteTodo(todo.id)">Delete</button>
+        </li>
+      </ul>
+      <div *ngIf="editingTodo">
+        <h3>Edit Todo</h3>
+        <form (ngSubmit)="updateTodo()">
+          <input [(ngModel)]="editingTodo.title" name="editTitle" required />
+          <input [(ngModel)]="editingTodo.description" name="editDescription" />
+          <button type="submit">Update</button>
+          <button type="button" (click)="cancelEdit()">Cancel</button>
+        </form>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .todo-container { max-width: 500px; margin: 2rem auto; padding: 2rem; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; }
+    .todo-form, .todo-list, form { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .todo-list { flex-direction: column; }
+    .completed { text-decoration: line-through; color: #888; }
+    button { cursor: pointer; }
+  `]
+})
+export class TodoListComponent {
+  todos: Todo[] = [];
+  newTodo: Partial<Todo> = { title: '', description: '' };
+  editingTodo?: Todo;
+
+  constructor(private todoService: TodoService) {
+    this.loadTodos();
+  }
+
+  loadTodos() {
+    this.todoService.getTodos().subscribe(todos => this.todos = todos);
+  }
+
+  addTodo() {
+    if (!this.newTodo.title) return;
+    this.todoService.createTodo({
+      title: this.newTodo.title,
+      description: this.newTodo.description,
+      isCompleted: false
+    }).subscribe(() => {
+      this.newTodo = { title: '', description: '' };
+      this.loadTodos();
+    });
+  }
+
+  editTodo(todo: Todo) {
+    this.editingTodo = { ...todo };
+  }
+
+  updateTodo() {
+    if (!this.editingTodo) return;
+    this.todoService.updateTodo(this.editingTodo).subscribe(() => {
+      this.editingTodo = undefined;
+      this.loadTodos();
+    });
+  }
+
+  cancelEdit() {
+    this.editingTodo = undefined;
+  }
+
+  deleteTodo(id: number) {
+    this.todoService.deleteTodo(id).subscribe(() => this.loadTodos());
+  }
+
+  toggleComplete(todo: Todo) {
+    this.todoService.updateTodo(todo).subscribe();
+  }
+}
