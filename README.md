@@ -8,6 +8,9 @@
 
 **Server:** ASP.NET Core Web API, Entity Framework Core, Swagger
 
+![Light Mode](LightMode.png)
+![Dark Mode](DarkMode.png)
+
 ## Hướng dẫn chạy dự án
 
 ### Backend (Server)
