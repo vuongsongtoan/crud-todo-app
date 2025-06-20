@@ -10,7 +10,7 @@
               class="flex items-center gap-3 rounded-xl px-4 py-3 shadow border-2 border-accent2-light dark:border-accent2-dark hover:border-accent-light dark:hover:border-accent-dark transition-all"
               [ngClass]="{
                 'bg-white dark:bg-background-dark': !todo.isCompleted,
-                'bg-gray-200 dark:bg-gray-800 opacity-60': todo.isCompleted
+                'bg-[#e3eafc] dark:bg-purple-300 opacity-55': todo.isCompleted
               }">
             <button (click)="toggleComplete(todo)" class="w-7 h-7 flex-shrink-0 flex items-center justify-center rounded-full border-2 border-accent-light dark:border-accent-dark focus:outline-none transition-all duration-200"
               [ngClass]="todo.isCompleted ? 'bg-accent-light dark:bg-accent-dark border-accent-light dark:border-accent-dark scale-110' : 'bg-white dark:bg-background-dark'">

@@ -274,3 +274,4 @@ D:\Dsoft\CRUDTodoApp\server\obj\Debug\net8.0\refint\CRUDTodoApp.dll
 D:\Dsoft\CRUDTodoApp\server\obj\Debug\net8.0\CRUDTodoApp.pdb
 D:\Dsoft\CRUDTodoApp\server\obj\Debug\net8.0\CRUDTodoApp.genruntimeconfig.cache
 D:\Dsoft\CRUDTodoApp\server\obj\Debug\net8.0\ref\CRUDTodoApp.dll
+D:\Dsoft\CRUDTodoApp\server\obj\Debug\net8.0\CRUDTodoApp.sourcelink.json
