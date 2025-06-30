@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CRUDTodoApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+564f5615c53664d9998f8c7bab2e99bdb01a7f40")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3fd312ea257f9e4044fed6b683d5cf778da5f1b6")]
 [assembly: System.Reflection.AssemblyProductAttribute("CRUDTodoApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CRUDTodoApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

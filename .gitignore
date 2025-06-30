@@ -5,11 +5,14 @@
 **/out-tsc/
 **/tmp/
 **/bazel-out/
+publish/
 
 # Node.js
 **/node_modules/
 npm-debug.log
 yarn-error.log
+package-lock.json
+yarn.lock
 
 # .NET
 *.user
@@ -25,6 +28,16 @@ yarn-error.log
 *.vssscc
 .builds
 *.dotCover
+*.ncrunchsolution
+*.ncrunchproject
+StyleCopReport.xml
+TestResults/
+[Bb]uild[Ll]og.*
+*.VisualState.xml
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.VC.opendb
 
 # Visual Studio / Visual Studio Code
 .vscode/*
@@ -39,15 +52,23 @@ yarn-error.log
 *.userosscache
 *.sln.docstates
 
+# JetBrains IDEs
+.idea/
+*.sln.iml
+
 # System files
 .DS_Store
 Thumbs.db
 *.swp
 *.swo
 *~
+ehthumbs.db
+Desktop.ini
 
-# Logs
+# Logs and diagnostics
 *.log
+*.dmp
+*.stackdump
 
 # Runtime data
 pids
@@ -57,14 +78,98 @@ pids
 
 # Coverage directory used by tools like istanbul
 coverage/
+*.lcov
+.nyc_output
 
-# Environment variables
+# Environment variables and secrets
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+.env.production
+appsettings.Production.json
+appsettings.Staging.json
+**/appsettings.*.json
+!**/appsettings.Development.json
+
+# Database
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Keys and certificates
+*.pfx
+*.p12
+*.key
+*.pem
+*.crt
+*.cer
+*.der
 
 # Temporary folders
 tmp/
 temp/
+.tmp/
+
+# Package managers
+.pnpm-store/
+.yarn/
+.pnp.*
+
+# Testing
+.jest/
+.mocha/
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# AWS
+.aws/
+
+# Azure
+.azure/
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Kubernetes
+*.kubeconfig
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk

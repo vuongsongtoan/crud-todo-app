@@ -1,11 +1,38 @@
 # CRUDTodoApp
 
-Ứng dụng Todo CRUD đơn giản sử dụng ASP.NET Core Web API (backend) + Angular + TailwindCSS (frontend)
+Ứng dụng Todo CRUD đơn giản sử dụng ASP.## 📁 Cấu trúc dự án
+
+```
+CRUDTodoApp/
+├── client/                    # Angular frontend
+│   ├── src/
+│   │   ├── app/
+│   │   └── styles.css
+│   ├── angular.json
+│   └── package.json
+├── server/                    # .NET backend
+│   ├── Controllers/           # API Controllers
+│   │   └── TodosController.cs
+│   ├── Models/               # Data models
+│   │   ├── Todo.cs
+│   │   └── DTOs/
+│   │       └── TodoDtos.cs
+│   ├── Services/             # Business logic
+│   │   ├── ITodoService.cs
+│   │   └── TodoService.cs
+│   ├── Data/                 # Data access
+│   │   └── AppDbContext.cs
+│   ├── Migrations/           # EF migrations
+│   ├── Program.cs           # Application entry point
+│   └── CRUDTodoApp.csproj   # Project file
+├── .gitignore
+└── README.md
+```ackend) + Angular + TailwindCSS (frontend)
 
 ## 🚀 Tech Stack
 
 **Frontend:** Angular 20, TailwindCSS, TypeScript  
-**Backend:** ASP.NET Core 8.0, Entity Framework Core, Swagger  
+**Backend:** ASP.NET Core 9.0, Entity Framework Core, Swagger  
 **Database:** SQL Server  
 
 ![Light Mode](LightMode.png)
@@ -13,7 +40,7 @@
 
 ## 📋 Yêu cầu hệ thống
 
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
 - [Node.js 18+ và npm](https://nodejs.org/)
 - [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
 - [Angular CLI](https://angular.io/cli): `npm install -g @angular/cli`
@@ -86,25 +113,25 @@ cd client
 ng build --configuration=production
 ```
 
-## ✨ Tính năng
+## 🏗️ Kiến trúc
 
-- ✅ Thêm, sửa, xóa, xem todo
-- ✅ Dark/Light mode
-- ✅ Responsive design với TailwindCSS
-- ✅ RESTful API với Swagger documentation
-- ✅ Entity Framework Core với SQL Server
+Dự án được xây dựng theo mô hình **MVC (Model-View-Controller)** và **Clean Architecture**:
 
-## 🤝 Contributing
+- **Models**: Định nghĩa cấu trúc dữ liệu và DTOs
+- **Controllers**: Xử lý HTTP requests và responses  
+- **Services**: Business logic và xử lý nghiệp vụ
+- **Data**: Data access layer với Entity Framework Core
+- **DTOs**: Data Transfer Objects cho API communication
 
-1. Fork repository
-2. Tạo feature branch: `git checkout -b feature/ten-tinh-nang`
-3. Commit thay đổi: `git commit -m 'Thêm tính năng mới'`
-4. Push lên branch: `git push origin feature/ten-tinh-nang`
-5. Tạo Pull Request
+### Các tính năng kiến trúc:
+- ✅ Separation of Concerns
+- ✅ Dependency Injection
+- ✅ Repository Pattern via EF Core
+- ✅ Service Layer Pattern
+- ✅ DTO Pattern for API
+- ✅ Model Validation
 
-## 📄 License
 
-Dự án này sử dụng giấy phép MIT License.
 
 
 

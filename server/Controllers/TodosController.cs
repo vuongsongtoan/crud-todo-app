@@ -1,6 +1,6 @@
-using CRUDTodoApp.Data;
+using CRUDTodoApp.Models.DTOs;
+using CRUDTodoApp.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CRUDTodoApp.Controllers
 {
@@ -8,62 +8,60 @@ namespace CRUDTodoApp.Controllers
     [Route("api/[controller]")]
     public class TodosController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ITodoService _todoService;
 
-        public TodosController(AppDbContext context)
+        public TodosController(ITodoService todoService)
         {
-            _context = context;
+            _todoService = todoService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Todo>>> GetTodos()
+        public async Task<ActionResult<IEnumerable<TodoResponseDto>>> GetTodos()
         {
-            // Sắp xếp theo thời điểm tạo
-            return await _context.Todos.OrderBy(t => t.CreatedAt).ToListAsync();
+            var todos = await _todoService.GetAllTodosAsync();
+            return Ok(todos);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Todo>> GetTodo(Guid id)
+        public async Task<ActionResult<TodoResponseDto>> GetTodo(Guid id)
         {
-            var todo = await _context.Todos.FindAsync(id);
+            var todo = await _todoService.GetTodoByIdAsync(id);
             if (todo == null)
                 return NotFound();
-            return todo;
+            
+            return Ok(todo);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Todo>> CreateTodo(Todo todo)
+        public async Task<ActionResult<TodoResponseDto>> CreateTodo(CreateTodoDto createTodoDto)
         {
-            todo.Id = Guid.NewGuid();
-            todo.CreatedAt = DateTime.UtcNow;
-            _context.Todos.Add(todo);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var todo = await _todoService.CreateTodoAsync(createTodoDto);
             return CreatedAtAction(nameof(GetTodo), new { id = todo.Id }, todo);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTodo(Guid id, Todo todo)
+        public async Task<IActionResult> UpdateTodo(Guid id, UpdateTodoDto updateTodoDto)
         {
-            if (id != todo.Id)
-                return BadRequest();
-            var existing = await _context.Todos.FindAsync(id);
-            if (existing == null)
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var success = await _todoService.UpdateTodoAsync(id, updateTodoDto);
+            if (!success)
                 return NotFound();
-            existing.Title = todo.Title;
-            existing.IsCompleted = todo.IsCompleted;
-            // Không cập nhật CreatedAt khi sửa
-            await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTodo(Guid id)
         {
-            var todo = await _context.Todos.FindAsync(id);
-            if (todo == null)
+            var success = await _todoService.DeleteTodoAsync(id);
+            if (!success)
                 return NotFound();
-            _context.Todos.Remove(todo);
-            await _context.SaveChangesAsync();
+
             return NoContent();
         }
     }

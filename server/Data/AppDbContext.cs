@@ -1,20 +1,28 @@
 using Microsoft.EntityFrameworkCore;
-using System;
+using CRUDTodoApp.Models;
 
 namespace CRUDTodoApp.Data
 {
-    public class Todo
-    {
-        public Guid Id { get; set; }
-        public required string Title { get; set; }
-        public bool IsCompleted { get; set; }
-        public DateTime CreatedAt { get; set; }
-    }
-
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Todo> Todos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Configure Todo entity
+            modelBuilder.Entity<Todo>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Title)
+                      .IsRequired()
+                      .HasMaxLength(200);
+                entity.Property(e => e.CreatedAt)
+                      .HasDefaultValueSql("GETUTCDATE()");
+            });
+        }
     }
 }

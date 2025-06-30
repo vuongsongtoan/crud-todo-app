@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # SQL Server for development
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: todoapp_db
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: YourStrongPassword123!
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - todoapp_network
+    restart: unless-stopped
+
+  # Backend API
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: todoapp_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=TodoDb;User Id=sa;Password=YourStrongPassword123!;TrustServerCertificate=True;
+    ports:
+      - "5014:8080"
+    depends_on:
+      - sqlserver
+    networks:
+      - todoapp_network
+    restart: unless-stopped
+
+  # Frontend (Angular)
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      target: development
+    container_name: todoapp_frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    networks:
+      - todoapp_network
+    restart: unless-stopped
+
+volumes:
+  sqlserver_data:
+
+networks:
+  todoapp_network:
+    driver: bridge
