@@ -1,34 +1,6 @@
 # CRUDTodoApp
 
-Ứng dụng Todo CRUD đơn giản sử dụng ASP.## 📁 Cấu trúc dự án
-
-```
-CRUDTodoApp/
-├── client/                    # Angular frontend
-│   ├── src/
-│   │   ├── app/
-│   │   └── styles.css
-│   ├── angular.json
-│   └── package.json
-├── server/                    # .NET backend
-│   ├── Controllers/           # API Controllers
-│   │   └── TodosController.cs
-│   ├── Models/               # Data models
-│   │   ├── Todo.cs
-│   │   └── DTOs/
-│   │       └── TodoDtos.cs
-│   ├── Services/             # Business logic
-│   │   ├── ITodoService.cs
-│   │   └── TodoService.cs
-│   ├── Data/                 # Data access
-│   │   └── AppDbContext.cs
-│   ├── Migrations/           # EF migrations
-│   ├── Program.cs           # Application entry point
-│   └── CRUDTodoApp.csproj   # Project file
-├── .gitignore
-└── README.md
-```ackend) + Angular + TailwindCSS (frontend)
-
+Ứng dụng Todo CRUD đơn giản
 ## 🚀 Tech Stack
 
 **Frontend:** Angular 20, TailwindCSS, TypeScript  
@@ -74,33 +46,6 @@ Frontend sẽ chạy tại: http://localhost:4200
 
 Truy cập Swagger UI: http://localhost:5014/swagger
 
-### Các endpoint chính:
-- `GET /api/todos` - Lấy danh sách todos
-- `POST /api/todos` - Tạo todo mới
-- `PUT /api/todos/{id}` - Cập nhật todo
-- `DELETE /api/todos/{id}` - Xóa todo
-
-## � Cấu trúc dự án
-
-```
-CRUDTodoApp/
-├── client/                    # Angular frontend
-│   ├── src/
-│   │   ├── app/
-│   │   └── styles.css
-│   ├── angular.json
-│   └── package.json
-├── server/                    # .NET backend
-│   ├── Controllers/
-│   ├── Data/
-│   ├── Migrations/
-│   ├── Program.cs
-│   └── CRUDTodoApp.csproj
-├── .gitignore
-└── README.md
-```
-
-## �️ Development
 
 ### Build cho Production
 ```bash
@@ -113,23 +58,6 @@ cd client
 ng build --configuration=production
 ```
 
-## 🏗️ Kiến trúc
-
-Dự án được xây dựng theo mô hình **MVC (Model-View-Controller)** và **Clean Architecture**:
-
-- **Models**: Định nghĩa cấu trúc dữ liệu và DTOs
-- **Controllers**: Xử lý HTTP requests và responses  
-- **Services**: Business logic và xử lý nghiệp vụ
-- **Data**: Data access layer với Entity Framework Core
-- **DTOs**: Data Transfer Objects cho API communication
-
-### Các tính năng kiến trúc:
-- ✅ Separation of Concerns
-- ✅ Dependency Injection
-- ✅ Repository Pattern via EF Core
-- ✅ Service Layer Pattern
-- ✅ DTO Pattern for API
-- ✅ Model Validation
 
 
 
