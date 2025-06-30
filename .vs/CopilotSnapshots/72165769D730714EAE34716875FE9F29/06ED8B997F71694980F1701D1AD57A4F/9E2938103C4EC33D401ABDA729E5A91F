@@ -1,6 +1,0 @@
-﻿@CRUDTodoApp_HostAddress = http://localhost:5014
-
-GET {{CRUDTodoApp_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
